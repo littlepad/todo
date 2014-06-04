@@ -1,0 +1,17 @@
+{
+  "name": "todo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/littlepad/todo",
+  "authors": [
+    "littlepad <littlepad@gmail.com>"
+  ],
+  "description": "todo application by backbone.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
