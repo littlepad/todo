@@ -55,5 +55,5 @@
 
 	var todos = new Todos();
 	var todoForm = new TodoForm({el: '.todoForm', collection: todos});
-	var todoList = new TodoList({el: '.todoList', collection:todos});
+	var todoList = new TodoList({el: '.todoList', collection: todos});
 })();
