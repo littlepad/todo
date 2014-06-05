@@ -49,9 +49,14 @@ module.exports = function(grunt){
 			js: {
 				src: [
 					'<%= dir.dev %>/js/Todo/config.js',
-					'<%= dir.dev %>/js/Todo/Models/**/*.js',
-					'<%= dir.dev %>/js/Todo/Collections/**/*.js',
-					'<%= dir.dev %>/js/Todo/Views/**/*.js',
+					'<%= dir.dev %>/js/Todo/Models/ModelBase.js',
+					'<%= dir.dev %>/js/Todo/Models/Todo.js',
+					'<%= dir.dev %>/js/Todo/Collections/CollectionBase.js',
+					'<%= dir.dev %>/js/Todo/Collections/Todos.js',
+					'<%= dir.dev %>/js/Todo/Views/ViewBase.js',
+					'<%= dir.dev %>/js/Todo/Views/TodoForm.js',
+					'<%= dir.dev %>/js/Todo/Views/TodoList.js',
+					'<%= dir.dev %>/js/Todo/Views/TodoListItem.js',
 					'<%= dir.dev %>/js/index.js',
 				],
 				dest: '<%= dir.dev %>/js/todo.js'
@@ -180,7 +185,7 @@ module.exports = function(grunt){
 				files: [
 					'<%= dir.dev %>/js/**/*.js'
 				],
-				tasks: ['concat:js_libs', 'concat:js', 'jshint:all' ]
+				tasks: ['concat:js_libs', 'concat:js', 'jshint:all', 'uglify' ]
 			},
 
 			sass: {

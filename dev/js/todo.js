@@ -8,7 +8,7 @@ Todo.Collections = {};
 Todo.Views = {};
 
 
-Todo.Model.ModelBase = Backbone.Model.extend();
+Todo.Models.ModelBase = Backbone.Model.extend();
 
 Todo.Models.Todo = Todo.Models.ModelBase.extend({
 	defaults: {
@@ -19,8 +19,10 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 Todo.Collections.CollectionBase = Backbone.Collection.extend();
 
 Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
-	model: Todo.Model.Todo 
+	model: Todo.Models.Todo 
 });
+
+Todo.Views.ViewBase = Backbone.View.extend();
 
 Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 	initialize: function(){
@@ -70,9 +72,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	}
 });
 
-Todo.Views.ViewBase = Backbone.View.extend();
-
-var todos = new Todo.Models.Todos();
+var todos = new Todo.Collections.Todos();
 var todoForm = new Todo.Views.TodoForm({el: '.todoForm', collection: todos});
 var todoList = new Todo.Views.TodoList({el: '.todoList', collection: todos});
 

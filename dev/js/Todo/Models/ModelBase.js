@@ -1,1 +1,1 @@
-Todo.Model.ModelBase = Backbone.Model.extend();
+Todo.Models.ModelBase = Backbone.Model.extend();
