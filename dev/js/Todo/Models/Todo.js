@@ -1,3 +1,5 @@
-/**
- * Created by shibata on 14/06/05.
- */
+Todo.Models.Todo = Todo.Models.ModelBase.extend({
+	defaults: {
+		text: null
+	}
+});

@@ -1,3 +1,1 @@
-/**
- * Created by shibata on 14/06/05.
- */
+Todo.Model.ModelBase = Backbone.Model.extend();

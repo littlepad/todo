@@ -1,14 +1,11 @@
-(function(){
-	Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
-		initialize: function(){
-			this.$input = this.$('input[type="text"]');
-		},
-		events: {
-			'submit': 'onSubmit'
-		},
-		onSubmit: function(e){
-			e.preventDefault();
-			this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
-		}
-	});
-})();
+Todo.Views.TodoList = Todo.Views.ViewBase.extend({
+	initialize: function(){
+		"use strict";
+		this.collection.on('add', this.add, this);
+	},
+	add: function(todo) {
+		"use strict";
+		var item = new Todo.Views.TodoListItem({model:todo});
+		this.$el.append(item.el);
+	}
+});

@@ -1,59 +1,78 @@
-(function(){
-	"use strict";
+/**
+ * @namespace Todo
+ */
+var Todo = window.Todo || {};
 
-	var Todo = Backbone.Model.extend({
-		defaults: {
-			text: null
-		}
-	});
+Todo.Models = {};
+Todo.Collections = {};
+Todo.Views = {};
 
-	var Todos = Backbone.Collection.extend({
-		model: Todo
-	});
 
-	var TodoForm = Backbone.View.extend({
-		initialize: function(){
-			this.$input = this.$('input[type="text"]');
-		},
-		events: {
-			'submit': 'onSubmit'
-		},
-		onSubmit: function(e){
-			e.preventDefault();
-			this.collection.add(new Todo({text: this.$input.val()}));
-		}
-	});
+Todo.Model.ModelBase = Backbone.Model.extend();
 
-	var TodoList = Backbone.View.extend({
-		initialize: function(){
-			this.collection.on('add', this.add, this);
-		},
-		add: function(todo) {
-			var item = new TodoListItem({model:todo});
-			this.$el.append(item.el);
-		}
-	});
+Todo.Models.Todo = Todo.Models.ModelBase.extend({
+	defaults: {
+		text: null
+	}
+});
 
-	var TodoListItem = Backbone.View.extend({
-		tagName: 'li',
-		initialize: function(options){
-			var html = '<input type="checkbox"><span class="text">' + options.model.get('text') + '</span>';
-			this.$el.html(html);
-		},
-		events: {
-			'click .text': 'onClickText',
-			'change input[type="checkbox"]': 'onChangeCheckbox'
-		},
-		onClickText: function(){
+Todo.Collections.CollectionBase = Backbone.Collection.extend();
 
-		},
-		onChangeCheckbox: function(e){
-			$(e.target).prop('disabled', true) ;
-			this.$el.addClass("done");
-		}
-	});
+Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
+	model: Todo.Model.Todo 
+});
 
-	var todos = new Todos();
-	var todoForm = new TodoForm({el: '.todoForm', collection: todos});
-	var todoList = new TodoList({el: '.todoList', collection: todos});
-})();
+Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
+	initialize: function(){
+		"use strict";
+		this.$input = this.$('input[type="text"]');
+	},
+	events: {
+		'submit': 'onSubmit'
+	},
+	onSubmit: function(e){
+		"use strict";
+		e.preventDefault();
+		this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
+	}
+});
+
+Todo.Views.TodoList = Todo.Views.ViewBase.extend({
+	initialize: function(){
+		"use strict";
+		this.collection.on('add', this.add, this);
+	},
+	add: function(todo) {
+		"use strict";
+		var item = new Todo.Views.TodoListItem({model:todo});
+		this.$el.append(item.el);
+	}
+});
+
+Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
+	tagName: 'li',
+	initialize: function(options){
+		"use strict";
+		var html = '<input type="checkbox"><span class="text">' + options.model.get('text') + '</span>';
+		this.$el.html(html);
+	},
+	events: {
+		'click .text': 'onClickText',
+		'change input[type="checkbox"]': 'onChangeCheckbox'
+	},
+	onClickText: function(){
+
+	},
+	onChangeCheckbox: function(e){
+		"use strict";
+		$(e.target).prop('disabled', true) ;
+		this.$el.addClass("done");
+	}
+});
+
+Todo.Views.ViewBase = Backbone.View.extend();
+
+var todos = new Todo.Models.Todos();
+var todoForm = new Todo.Views.TodoForm({el: '.todoForm', collection: todos});
+var todoList = new Todo.Views.TodoList({el: '.todoList', collection: todos});
+

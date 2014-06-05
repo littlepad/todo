@@ -38,13 +38,23 @@ module.exports = function(grunt){
 		 *
 		 */
 		concat: {
-			js: {
+			js_libs: {
 				src: [
 					'<%= dir.dev %>/vender/underscore/underscore.js',
 					'<%= dir.dev %>/vender/jquery/jquery.js',
 					'<%= dir.dev %>/vender/backbone/backbone.js',
 				],
 				dest: '<%= dir.dev %>/js/libs.js'
+			},
+			js: {
+				src: [
+					'<%= dir.dev %>/js/Todo/config.js',
+					'<%= dir.dev %>/js/Todo/Models/**/*.js',
+					'<%= dir.dev %>/js/Todo/Collections/**/*.js',
+					'<%= dir.dev %>/js/Todo/Views/**/*.js',
+					'<%= dir.dev %>/js/index.js',
+				],
+				dest: '<%= dir.dev %>/js/todo.js'
 			}
 		},
 
@@ -170,7 +180,7 @@ module.exports = function(grunt){
 				files: [
 					'<%= dir.dev %>/js/**/*.js'
 				],
-				tasks: ['concat:js', 'jshint:all' ]
+				tasks: ['concat:js_libs', 'concat:js', 'jshint:all' ]
 			},
 
 			sass: {
@@ -214,5 +224,5 @@ module.exports = function(grunt){
 	 *
 	 */
 	grunt.registerTask('default', ['connect', 'watch']);
-	grunt.registerTask('build', ['clean:build', 'concat:js', 'jshint', 'uglify', 'sass', 'copy']);
+	grunt.registerTask('build', ['clean:build', 'concat:js_libs', 'concat:js', 'jshint', 'uglify', 'sass', 'copy']);
 };
