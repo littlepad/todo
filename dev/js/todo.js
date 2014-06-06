@@ -67,7 +67,7 @@ Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 	initialize: function(){
 		'use strict';
-		this.collection.on('add', this.add, this);
+		this.listenTo(this.collection, 'add', this.add);
 	},
 	
 	add: function(todo) {
