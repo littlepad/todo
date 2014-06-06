@@ -22,9 +22,9 @@ module.exports = function(grunt){
 		concat: {
 			js_libs: {
 				src: [
-					'<%= dir.dev %>/vender/underscore/underscore.js',
-					'<%= dir.dev %>/vender/jquery/jquery.js',
-					'<%= dir.dev %>/vender/backbone/backbone.js',
+					'bower_components/underscore/underscore.js',
+					'bower_components/jquery/dist/jquery.min.js',
+					'bower_components/backbone/backbone.js',
 				],
 				dest: '<%= dir.dev %>/js/libs.js'
 			},
