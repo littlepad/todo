@@ -31,8 +31,6 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 	addItems: function(items) {
 		'use strict';
 		for (var i = 0; i < items.length; i++) {
-			console.log(items[i]);
-			console.log(items[i].get('text'));
 			this.add(items[i]);
 		}
 	}

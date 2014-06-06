@@ -8,7 +8,7 @@ Todo.Routers.TodoRouter = Todo.Routers.RouterBase.extend({
 	routes: {
 		'active': 'active',
 		'completed': 'completed',
-		'*all': 'all'
+		'all': 'all'
 	},
 	
 	all: function() {

@@ -70,7 +70,8 @@ module.exports = function(grunt){
 				globals: {
 					jQuery: false,
 					$: false,
-					Backbone: false
+					Backbone: false,
+					_: false
 				}
 			}
 		},

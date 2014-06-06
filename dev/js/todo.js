@@ -100,8 +100,6 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 	addItems: function(items) {
 		'use strict';
 		for (var i = 0; i < items.length; i++) {
-			console.log(items[i]);
-			console.log(items[i].get('text'));
 			this.add(items[i]);
 		}
 	}
@@ -110,30 +108,38 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 
 Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	tagName: 'li',
+	
+	tmpl: '<input type="checkbox"><span class="text"><%= text %></span>',
+	
+	events: {
+		'change input[type="checkbox"]': 'onChangeCheckbox'
+	},
+	
 	initialize: function(options){
 		'use strict';
 		this.model = options.model;
-		var html = '<input type="checkbox"><span class="text">' + this.model.get('text') + '</span>';
-		if(this.model.get('completed')) {
-			this.setCompleted('input[type="checkbox"]');
-		}
+		this.render();
+	},
+	
+	render: function() {
+		'use strict';
+		var html = _.template(this.tmpl, this.model.toJSON());
 		this.$el.html(html);
+		if(this.model.get('completed')) {
+			this.setCompleted(this.$('input[type="checkbox"]'));
+		}
 	},
-	events: {
-		'click .text': 'onClickText',
-		'change input[type="checkbox"]': 'onChangeCheckbox'
-	},
-	onClickText: function(){
-
-	},
+	
 	onChangeCheckbox: function(e){
 		'use strict';
 		this.setCompleted(e.target);
 	},
+	
 	setCompleted: function(target) {
 		'use strict';
 		this.model.setCompleted();
-		$(target).prop('disabled', true) ;
+		$(target).prop('disabled', true);
+		console.log($(target));
 		this.$el.addClass('done');
 	}
 });
@@ -149,7 +155,7 @@ Todo.Routers.TodoRouter = Todo.Routers.RouterBase.extend({
 	routes: {
 		'active': 'active',
 		'completed': 'completed',
-		'*all': 'all'
+		'all': 'all'
 	},
 	
 	all: function() {
