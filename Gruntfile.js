@@ -16,24 +16,6 @@ module.exports = function(grunt){
 
 		/**
 		 *
-		 * bower componentsのレイアウト
-		 *
-		 */
-		bower: {
-			install: {
-				options: {
-					targetDir: '<%= dir.dev %>/vender',
-					layout: 'byType',
-					install: true,
-					verbose: false,
-					cleanTargetDir: true,
-					cleanBowerDir: false
-				}
-			}
-		},
-
-		/**
-		 *
 		 * ファイルの結合
 		 *
 		 */
