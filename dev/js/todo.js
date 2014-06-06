@@ -147,6 +147,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		'use strict';
 		this.model.setCompleted();
 		$(target).prop('disabled', true);
+		$(target).prop('checked', true);
 		this.$el.addClass('done');
 	}
 });
