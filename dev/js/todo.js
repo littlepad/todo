@@ -29,13 +29,11 @@ Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
 	
 	getAll: function() {
 		'use strict';
-		console.log(this.length);
 		return this.models;
 	},
 	
 	getActive: function() {
 		'use strict';
-		console.log(this.filter(function(todo) { return !todo.get('completed'); }).length);
 		return this.filter(function(todo) {
 			return !todo.get('completed');
 		});	
@@ -43,7 +41,6 @@ Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
 	
 	getCompleted: function() {
 		'use strict';
-		console.log(this.filter(function(todo) { return todo.get('completed'); }).length);
 		return this.filter(function(todo) {
 			return todo.get('completed');
 		});
@@ -139,7 +136,6 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		'use strict';
 		this.model.setCompleted();
 		$(target).prop('disabled', true);
-		console.log($(target));
 		this.$el.addClass('done');
 	}
 });
