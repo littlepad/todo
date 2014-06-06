@@ -60,7 +60,10 @@ Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 	onSubmit: function(e){
 		'use strict';
 		e.preventDefault();
-		this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
+		if(this.$input.val()) {
+			this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
+			this.$input.val("");
+		}
 	}
 });
 
