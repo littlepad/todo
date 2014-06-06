@@ -1,8 +1,12 @@
 Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	tagName: 'li',
 	initialize: function(options){
-		"use strict";
-		var html = '<input type="checkbox"><span class="text">' + options.model.get('text') + '</span>';
+		'use strict';
+		this.model = options.model;
+		var html = '<input type="checkbox"><span class="text">' + this.model.get('text') + '</span>';
+		if(this.model.get('completed')) {
+			this.setCompleted('input[type="checkbox"]');
+		}
 		this.$el.html(html);
 	},
 	events: {
@@ -13,8 +17,13 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 
 	},
 	onChangeCheckbox: function(e){
-		"use strict";
-		$(e.target).prop('disabled', true) ;
-		this.$el.addClass("done");
+		'use strict';
+		this.setCompleted(e.target);
+	},
+	setCompleted: function(target) {
+		'use strict';
+		this.model.setCompleted();
+		$(target).prop('disabled', true) ;
+		this.$el.addClass('done');
 	}
 });

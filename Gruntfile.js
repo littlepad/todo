@@ -57,6 +57,8 @@ module.exports = function(grunt){
 					'<%= dir.dev %>/js/Todo/Views/TodoForm.js',
 					'<%= dir.dev %>/js/Todo/Views/TodoList.js',
 					'<%= dir.dev %>/js/Todo/Views/TodoListItem.js',
+					'<%= dir.dev %>/js/Todo/Routers/RouterBase.js',
+					'<%= dir.dev %>/js/Todo/Routers/TodoRouter.js',
 					'<%= dir.dev %>/js/index.js',
 				],
 				dest: '<%= dir.dev %>/js/todo.js'
