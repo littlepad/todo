@@ -19,6 +19,7 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 	setCompleted: function() {
 		'use strict';
 		this.set('completed', true);
+		this.save();
 	}
 });
 
@@ -26,6 +27,8 @@ Todo.Collections.CollectionBase = Backbone.Collection.extend();
 
 Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
 	model: Todo.Models.Todo,
+	
+	localStorage: new Backbone.LocalStorage('todos-backbone'),
 	
 	getAll: function() {
 		'use strict';
@@ -72,10 +75,13 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 	initialize: function(){
 		'use strict';
 		this.listenTo(this.collection, 'add', this.add);
+		this.listenTo(this.collection, 'reset', this.showAll);
+		this.collection.fetch();
 	},
 	
 	add: function(todo) {
 		'use strict';
+		todo.save();
 		var item = new Todo.Views.TodoListItem({model:todo});
 		this.$el.append(item.el);
 	},
@@ -96,6 +102,7 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 		'use strict';
 		this.$el.empty();
 		this.addItems(this.collection.getCompleted());
+		console.log("showCompleted");
 	},
 	
 	addItems: function(items) {

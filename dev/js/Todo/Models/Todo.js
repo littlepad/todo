@@ -7,5 +7,6 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 	setCompleted: function() {
 		'use strict';
 		this.set('completed', true);
+		this.save();
 	}
 });
