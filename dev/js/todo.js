@@ -63,6 +63,7 @@ Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 		if(this.$input.val()) {
 			this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
 			this.$input.val("");
+			this.$input.focus();
 		}
 	}
 });
