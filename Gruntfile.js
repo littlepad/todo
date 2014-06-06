@@ -25,6 +25,7 @@ module.exports = function(grunt){
 					'bower_components/underscore/underscore.js',
 					'bower_components/jquery/dist/jquery.min.js',
 					'bower_components/backbone/backbone.js',
+					'bower_components/Backbone.localStorage/backbone.localStorage-min.js'
 				],
 				dest: '<%= dir.dev %>/js/libs.js'
 			},
