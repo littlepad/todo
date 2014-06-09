@@ -405,7 +405,72 @@ table {
   border-spacing: 0;
 }
 
+body {
+  color: #333;
+}
+
+#container {
+  margin: 0 auto;
+  width: 500px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#nav {
+  list-style: none;
+  padding-left: 0;
+}
+#nav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#nav > li {
+  float: left;
+  width: 33.3%;
+  font-size: 80%;
+  text-align: center;
+}
+
+.todoForm {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background: #EEE;
+  border: solid 1px #DDD;
+  list-style: none;
+  padding: 1em;
+}
+.todoForm:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.todoForm .input {
+  float: left;
+  width: 400px;
+}
+.todoForm .submit {
+  float: right;
+}
+
+.todoList {
+  list-style: none;
+  padding-left: 0;
+}
+.todoList > li {
+  padding: 0.5em;
+  border-bottom: solid 1px #DDD;
+}
+.todoList > li input {
+  margin-right: 0.5em;
+}
+
 .done {
-  color: #CCC;
+  color: #999;
   text-decoration: line-through;
 }
