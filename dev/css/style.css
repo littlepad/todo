@@ -466,11 +466,25 @@ h1 {
   padding: 0.5em;
   border-bottom: solid 1px #DDD;
 }
+.todoList > li p {
+  margin: 0;
+}
+.todoList > li p:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .todoList > li input {
   margin-right: 0.5em;
 }
-
-.done {
+.todoList > li .deleteButton {
+  float: right;
+  display: none;
+}
+.todoList > li .showDeletebutton {
+  display: block;
+}
+.todoList > li .done {
   color: #999;
   text-decoration: line-through;
 }

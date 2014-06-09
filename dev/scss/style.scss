@@ -54,15 +54,30 @@ h1 {
 	& > li {
 		padding: 0.5em;
 		border-bottom: solid 1px #DDD;
-		
+
+		p {
+			@include pie-clearfix;
+			margin: 0;
+		}
+
 		input {
 			margin-right: 0.5em;
+		}
+
+		.deleteButton {
+			float: right;
+			display: none;
+		}
+
+		.showDeletebutton {
+			display: block;
+		}
+
+		.done {
+			color: #999;
+			text-decoration: line-through;
 		}
 	}
 }
 
-.done {
-	color: #999;
-	text-decoration: line-through;
-}
 

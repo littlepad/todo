@@ -405,9 +405,17 @@ table {
   border-spacing: 0;
 }
 
+body {
+  color: #333;
+}
+
 #container {
   margin: 0 auto;
   width: 500px;
+}
+
+h1 {
+  text-align: center;
 }
 
 #nav {
@@ -422,6 +430,7 @@ table {
 #nav > li {
   float: left;
   width: 33.3%;
+  font-size: 80%;
   text-align: center;
 }
 
@@ -457,11 +466,25 @@ table {
   padding: 0.5em;
   border-bottom: solid 1px #DDD;
 }
+.todoList > li p {
+  margin: 0;
+}
+.todoList > li p:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .todoList > li input {
   margin-right: 0.5em;
 }
-
-.done {
+.todoList > li .deleteButton {
+  float: right;
+  display: none;
+}
+.todoList > li .showDeletebutton {
+  display: block;
+}
+.todoList > li .done {
   color: #999;
   text-decoration: line-through;
 }
