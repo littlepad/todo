@@ -1,7 +1,7 @@
 Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 	initialize: function(){
 		'use strict';
-		this.$input = this.$('input[type="text"]');
+		this.$input = this.$('.todoForm__input');
 	},
 	events: {
 		'submit': 'onSubmit'

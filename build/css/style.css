@@ -445,19 +445,9 @@ h1 {
   list-style: none;
   padding: 1em;
 }
-.todoForm:after {
-  content: "";
-  display: table;
-  clear: both;
-}
 
 .todoForm__input {
-  float: left;
-  width: 400px;
-}
-
-.todoForm__submit {
-  float: right;
+  width: 100%;
 }
 
 .todoList {

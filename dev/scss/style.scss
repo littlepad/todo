@@ -30,7 +30,6 @@ h1 {
 }
 
 .todoForm {
-	@include pie-clearfix;
 	@include border-radius();
 	background: #EEE;
 	border: solid 1px #DDD;
@@ -39,12 +38,7 @@ h1 {
 }
 
 .todoForm__input {
-	float: left;
-	width: 400px;
-
-}
-.todoForm__submit {
-	float: right;
+	width: 100%;
 }
 
 .todoList {
