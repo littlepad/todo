@@ -450,11 +450,13 @@ h1 {
   display: table;
   clear: both;
 }
-.todoForm .input {
+
+.todoForm__input {
   float: left;
   width: 400px;
 }
-.todoForm .submit {
+
+.todoForm__submit {
   float: right;
 }
 
@@ -462,29 +464,34 @@ h1 {
   list-style: none;
   padding-left: 0;
 }
-.todoList > li {
+
+.todoListItem {
   padding: 0.5em;
   border-bottom: solid 1px #DDD;
 }
-.todoList > li p {
+.todoListItem > p {
   margin: 0;
 }
-.todoList > li p:after {
+.todoListItem > p:after {
   content: "";
   display: table;
   clear: both;
 }
-.todoList > li input {
+
+.todoListItem__checkbox {
   margin-right: 0.5em;
 }
-.todoList > li .deleteButton {
+
+.todoListItem__deleteButton {
   float: right;
   display: none;
 }
-.todoList > li .showDeletebutton {
+
+.todoListItem__deleteButton--show {
   display: block;
 }
-.todoList > li .done {
+
+.todoListItem--completed {
   color: #999;
   text-decoration: line-through;
 }

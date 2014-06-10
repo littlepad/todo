@@ -1,10 +1,12 @@
 Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	tagName: 'li',
 	
-	tmpl: '<p class="listItem"><input type="checkbox"><span class="text"><%= text %></span><a href="#" class="deleteButton">delete</a></p>',
+	className: 'todoListItem',
+	
+	tmpl: '<p><input type="checkbox" class="todoListItem__checkbox"><span class="todoListItem__text"><%= text %></span><a href="#" class="todoListItem__deleteButton">delete</a></p>',
 	
 	events: {
-		'change input[type="checkbox"]': 'onChangeCheckbox',
+		'change .todoListItem__checkbox': 'onChangeCheckbox',
 		'mouseover p': 'onMouseover',
 		'mouseout p': 'onMouseout',
 		'click .deleteButton': 'onClick'
@@ -14,7 +16,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		'use strict';
 		this.model = options.model;
 		this.render();
-
+		
 		this.listenTo(this.model, 'destroy', this.remove);
 	},
 	
@@ -23,7 +25,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		var html = _.template(this.tmpl, this.model.toJSON());
 		this.$el.html(html);
 		if(this.model.get('completed')) {
-			this.setCompleted(this.$('input[type="checkbox"]'));
+			this.setCompleted(this.$('.todoListItem__checkbox'));
 		}
 	},
 	
@@ -34,12 +36,12 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 
 	onMouseover: function(e){
 		'use strict';
-		$(e.target).children('.deleteButton').addClass('showDeletebutton');
+		$(e.target).children('.todoListItem__deleteButton').addClass('todoListItem__deleteButton--show');
 	},
 
 	onMouseout: function(e) {
 		'use strict';
-		$(e.target).children('.deleteButton').removeClass('showDeletebutton');
+		$(e.target).children('.todoListItem__deleteButton').removeClass('todoListItem__deleteButton--show');
 	},
 
 	onClick: function() {
@@ -52,6 +54,6 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		this.model.setCompleted();
 		$(target).prop('disabled', true);
 		$(target).prop('checked', true);
-		this.$el.addClass('done');
+		this.$el.addClass('todoListItem--completed');
 	}
 });

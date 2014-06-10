@@ -36,48 +36,46 @@ h1 {
 	border: solid 1px #DDD;
 	list-style: none;
 	padding: 1em;
-	
-	.input {
-		float: left;
-		width: 400px;
+}
 
-	}
-	.submit {
-		float: right;
-	}
+.todoForm__input {
+	float: left;
+	width: 400px;
+
+}
+.todoForm__submit {
+	float: right;
 }
 
 .todoList {
 	list-style: none;
 	padding-left: 0;
+}
+
+.todoListItem {
+	padding: 0.5em;
+	border-bottom: solid 1px #DDD;
 	
-	& > li {
-		padding: 0.5em;
-		border-bottom: solid 1px #DDD;
-
-		p {
-			@include pie-clearfix;
-			margin: 0;
-		}
-
-		input {
-			margin-right: 0.5em;
-		}
-
-		.deleteButton {
-			float: right;
-			display: none;
-		}
-
-		.showDeletebutton {
-			display: block;
-		}
-
-		.done {
-			color: #999;
-			text-decoration: line-through;
-		}
+	& > p {
+		@include pie-clearfix;
+		margin: 0;
 	}
 }
 
+.todoListItem__checkbox {
+	margin-right: 0.5em;
+}
 
+.todoListItem__deleteButton {
+	float: right;
+	display: none;
+}
+
+.todoListItem__deleteButton--show {
+	display: block;
+}
+
+.todoListItem--completed {
+	color: #999;
+	text-decoration: line-through;
+}
