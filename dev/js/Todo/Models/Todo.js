@@ -8,5 +8,11 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 		'use strict';
 		this.set('completed', true);
 		this.save();
+	},
+
+	setText: function(text) {
+		'use strict';
+		this.set('text', text);
+		this.save();
 	}
 });

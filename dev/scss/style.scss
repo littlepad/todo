@@ -60,6 +60,25 @@ h1 {
 	}
 }
 
+.todoListItem__editor {
+	display: none;
+}
+
+.todoListItem--edit {
+
+	.todoListItem__view {
+		display: none;
+	}
+
+	.todoListItem__editor {
+		display: block;
+
+		input {
+			width: 100%;
+		}
+	}
+}
+
 .todoListItem__checkbox {
 	margin-right: 0.5em;
 }

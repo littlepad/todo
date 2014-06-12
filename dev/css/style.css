@@ -471,6 +471,20 @@ h1 {
   display: block;
 }
 
+.todoListItem__editor {
+  display: none;
+}
+
+.todoListItem--edit .todoListItem__view {
+  display: none;
+}
+.todoListItem--edit .todoListItem__editor {
+  display: block;
+}
+.todoListItem--edit .todoListItem__editor input {
+  width: 100%;
+}
+
 .todoListItem__checkbox {
   margin-right: 0.5em;
 }

@@ -3,11 +3,14 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	
 	className: 'todoListItem',
 	
-	tmpl: '<p><input type="checkbox" class="todoListItem__checkbox"><span class="todoListItem__text"><%= text %></span><a href="#" class="todoListItem__deleteButton">delete</a></p>',
+	tmpl: '<p class="todoListItem__view"><input type="checkbox" class="todoListItem__checkbox"><span class="todoListItem__text"><%= text %></span><a href="#" class="todoListItem__deleteButton">delete</a></p>' +
+		'<form class="todoListItem__editor"><input type="text" class="todoListItem__input" value="<%= text %>"></form>',
 	
 	events: {
 		'change .todoListItem__checkbox': 'onChangeCheckbox',
-		'click .todoListItem__deleteButton': 'onClick'
+		'click .todoListItem__deleteButton': 'onClick',
+		'dblclick': 'onDoubleClick',
+		'submit': 'onSubmit'
 	},
 	
 	initialize: function(options){
@@ -35,6 +38,25 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	onClick: function() {
 		'use strict';
 		this.model.destroy();
+	},
+
+	onDoubleClick: function() {
+		'use strict';
+		if(this.model.get('completed')) return;
+		this.$el.addClass('todoListItem--edit');
+		var $input = this.$el.find('.todoListItem__input');
+		$input.val(this.model.get('text'));
+		$input.focus();
+	},
+
+	onSubmit: function() {
+		'use strict';
+		var $input = this.$el.find('.todoListItem__input');
+		if($input.val()) {
+			this.model.setText($input.val());
+			this.render();
+		}
+		this.$el.removeClass('todoListItem--edit');
 	},
 	
 	setCompleted: function(target) {
