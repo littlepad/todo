@@ -467,6 +467,9 @@ h1 {
   display: table;
   clear: both;
 }
+.todoListItem:hover .todoListItem__deleteButton {
+  display: block;
+}
 
 .todoListItem__checkbox {
   margin-right: 0.5em;
@@ -475,10 +478,6 @@ h1 {
 .todoListItem__deleteButton {
   float: right;
   display: none;
-}
-
-.todoListItem__deleteButton--show {
-  display: block;
 }
 
 .todoListItem--completed {

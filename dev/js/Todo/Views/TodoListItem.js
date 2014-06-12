@@ -7,9 +7,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	
 	events: {
 		'change .todoListItem__checkbox': 'onChangeCheckbox',
-		'mouseover p': 'onMouseover',
-		'mouseout p': 'onMouseout',
-		'click .deleteButton': 'onClick'
+		'click .todoListItem__deleteButton': 'onClick'
 	},
 	
 	initialize: function(options){
@@ -32,16 +30,6 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 	onChangeCheckbox: function(e){
 		'use strict';
 		this.setCompleted(e.target);
-	},
-
-	onMouseover: function(e){
-		'use strict';
-		$(e.target).children('.todoListItem__deleteButton').addClass('todoListItem__deleteButton--show');
-	},
-
-	onMouseout: function(e) {
-		'use strict';
-		$(e.target).children('.todoListItem__deleteButton').removeClass('todoListItem__deleteButton--show');
 	},
 
 	onClick: function() {
