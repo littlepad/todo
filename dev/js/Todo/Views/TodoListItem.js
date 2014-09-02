@@ -10,7 +10,8 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		'change .todoListItem__checkbox': 'onChangeCheckbox',
 		'click .todoListItem__deleteButton': 'onClick',
 		'dblclick': 'onDoubleClick',
-		'submit': 'onSubmit'
+		'submit': 'onSubmit',
+		'drop': 'onDrop'
 	},
 	
 	initialize: function(options){
@@ -28,6 +29,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		if(this.model.get('completed')) {
 			this.setCompleted(this.$('.todoListItem__checkbox'));
 		}
+		return this;
 	},
 	
 	onChangeCheckbox: function(e){
@@ -65,5 +67,10 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		$(target).prop('disabled', true);
 		$(target).prop('checked', true);
 		this.$el.addClass('todoListItem--completed');
+	},
+
+	onDrop: function(event, index) {
+		'use strict';
+		this.$el.trigger('updateSort', [this.model, index]);
 	}
 });

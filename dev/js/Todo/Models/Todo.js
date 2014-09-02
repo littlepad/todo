@@ -1,7 +1,8 @@
 Todo.Models.Todo = Todo.Models.ModelBase.extend({
 	defaults: {
 		text: null,
-		completed: false
+		completed: false,
+		ordinal: 0
 	},
 	
 	setCompleted: function() {
@@ -14,5 +15,10 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 		'use strict';
 		this.set('text', text);
 		this.save();
+	},
+
+	setOrdinal: function(ordinal) {
+		'use strict';
+		this.set('ordinal', ordinal);
 	}
 });

@@ -24,6 +24,7 @@ module.exports = function(grunt){
 				src: [
 					'bower_components/underscore/underscore.js',
 					'bower_components/jquery/dist/jquery.min.js',
+					'bower_components/jquery-ui/jquery-ui.min.js',
 					'bower_components/backbone/backbone.js',
 					'bower_components/Backbone.localStorage/backbone.localStorage-min.js'
 				],

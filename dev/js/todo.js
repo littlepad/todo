@@ -13,7 +13,8 @@ Todo.Models.ModelBase = Backbone.Model.extend();
 Todo.Models.Todo = Todo.Models.ModelBase.extend({
 	defaults: {
 		text: null,
-		completed: false
+		completed: false,
+		ordinal: 0
 	},
 	
 	setCompleted: function() {
@@ -26,6 +27,11 @@ Todo.Models.Todo = Todo.Models.ModelBase.extend({
 		'use strict';
 		this.set('text', text);
 		this.save();
+	},
+
+	setOrdinal: function(ordinal) {
+		'use strict';
+		this.set('ordinal', ordinal);
 	}
 });
 
@@ -33,9 +39,9 @@ Todo.Collections.CollectionBase = Backbone.Collection.extend();
 
 Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
 	model: Todo.Models.Todo,
-	
+
 	localStorage: new Backbone.LocalStorage('todos-backbone'),
-	
+
 	getAll: function() {
 		'use strict';
 		return this.models;
@@ -53,6 +59,12 @@ Todo.Collections.Todos = Todo.Collections.CollectionBase.extend({
 		return this.filter(function(todo) {
 			return todo.get('completed');
 		});
+	},
+
+	// ordinalをソートの基準に設定
+	comparator: function(model) {
+		'use strict';
+		return model.get('ordinal');
 	}
 });
 
@@ -70,7 +82,7 @@ Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 		'use strict';
 		e.preventDefault();
 		if(this.$input.val()) {
-			this.collection.add(new Todo.Models.Todo({text: this.$input.val()}));
+			this.collection.add(new Todo.Models.Todo({text: this.$input.val(), ordinal:this.collection.length}));
 			this.$input.val("");
 			this.$input.focus();
 		}
@@ -78,18 +90,22 @@ Todo.Views.TodoForm = Todo.Views.ViewBase.extend({
 });
 
 Todo.Views.TodoList = Todo.Views.ViewBase.extend({
+	events: {
+		'updateSort': 'onUpdateSort'
+	},
+
 	initialize: function(){
 		'use strict';
 		this.listenTo(this.collection, 'add', this.add);
 		this.listenTo(this.collection, 'reset', this.showAll);
 		this.collection.fetch();
 	},
-	
+
 	add: function(todo) {
 		'use strict';
 		todo.save();
 		var item = new Todo.Views.TodoListItem({model:todo});
-		this.$el.append(item.el);
+		this.render();
 	},
 	
 	showAll: function() {
@@ -108,7 +124,6 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 		'use strict';
 		this.$el.empty();
 		this.addItems(this.collection.getCompleted());
-		console.log("showCompleted");
 	},
 	
 	addItems: function(items) {
@@ -116,8 +131,49 @@ Todo.Views.TodoList = Todo.Views.ViewBase.extend({
 		for (var i = 0; i < items.length; i++) {
 			this.add(items[i]);
 		}
+	},
+
+	onUpdateSort: function(event, todo, position) {
+		'use strict';
+
+		// collectionから該当modelを削除
+		this.collection.remove(todo);
+
+		this.collection.each(function (model, index) {
+			var ordinal = index;
+			if (index >= position) {
+				ordinal += 1;
+			}
+			model.setOrdinal(ordinal);
+		});
+
+		// 差し込まれたindexへmodelを新たに挿入
+		todo.setOrdinal(position);
+		this.collection.add(todo, {at: position});
+
+		// modelを保存
+		this.collection.each(function(model, index){
+			model.save();
+		});
+
+		// ソート
+		this.collection.sort();
+		this.render();
+	},
+
+	render: function() {
+		'use strict';
+		this.$el.children().remove();
+		this.collection.each(this.appendModelView, this);
+		return this;
+	},
+
+	appendModelView: function(model) {
+		'use strict';
+		var el = new Todo.Views.TodoListItem({model: model}).render().el;
+		this.$el.append(el);
 	}
-	
+
 });
 
 Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
@@ -132,7 +188,8 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		'change .todoListItem__checkbox': 'onChangeCheckbox',
 		'click .todoListItem__deleteButton': 'onClick',
 		'dblclick': 'onDoubleClick',
-		'submit': 'onSubmit'
+		'submit': 'onSubmit',
+		'drop': 'onDrop'
 	},
 	
 	initialize: function(options){
@@ -150,6 +207,7 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		if(this.model.get('completed')) {
 			this.setCompleted(this.$('.todoListItem__checkbox'));
 		}
+		return this;
 	},
 	
 	onChangeCheckbox: function(e){
@@ -187,6 +245,11 @@ Todo.Views.TodoListItem = Todo.Views.ViewBase.extend({
 		$(target).prop('disabled', true);
 		$(target).prop('checked', true);
 		this.$el.addClass('todoListItem--completed');
+	},
+
+	onDrop: function(event, index) {
+		'use strict';
+		this.$el.trigger('updateSort', [this.model, index]);
 	}
 });
 
@@ -225,3 +288,12 @@ var todoForm = new Todo.Views.TodoForm({el: '.todoForm', collection: todos});
 var todoList = new Todo.Views.TodoList({el: '.todoList', collection: todos});
 var todoRouter = new Todo.Routers.TodoRouter({view: todoList, collection: todos});
 Backbone.history.start();
+
+$(function() {
+	'use strict';
+	$('.sortable').sortable({
+		update: function( event, ui ){
+			ui.item.trigger('drop', ui.item.index());
+		}
+	});
+});
